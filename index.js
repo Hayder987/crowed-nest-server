@@ -31,7 +31,12 @@ async function start() {
         res.send(result);
     })
 
-    
+    app.get('/campaigns', async(req, res)=>{
+        const allData = await campaignCollection.find().toArray()
+        res.send(allData)
+    })
+
+
    
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
