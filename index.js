@@ -24,6 +24,14 @@ async function start() {
   try {
    
     const campaignCollection = client.db("crowedDB").collection("campaignData");
+
+    app.post('/campaigns', async(req, res)=>{
+        const body = req.body;
+        const result = await campaignCollection.insertOne(body)
+        res.send(result);
+    })
+
+    
    
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
