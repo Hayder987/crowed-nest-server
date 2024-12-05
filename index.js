@@ -44,6 +44,15 @@ async function start() {
         res.send(result)
     })
 
+
+    app.get('/user/:email', async (req, res) => {
+      const email = req.params.email; 
+      const query = { useremail: email }; 
+      const result = await campaignCollection.find(query).toArray(); 
+      res.send(result); 
+    });
+
+    
     app.get('/recent', async(req, res)=>{
       const date = new Date();
       const formatDate = (currentDate) => {
@@ -60,7 +69,7 @@ async function start() {
       const result = await campaignCollection.find(query, options).toArray();
       res.send(result)
     })
-    
+
 
     app.post('/donation', async(req, res)=>{
       const body = req.body;
