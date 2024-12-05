@@ -24,6 +24,7 @@ async function start() {
   try {
    
     const campaignCollection = client.db("crowedDB").collection("campaignData");
+    const donationCollection = client.db("crowedDB").collection("donationData");
 
     app.post('/campaigns', async(req, res)=>{
         const body = req.body;
@@ -41,6 +42,12 @@ async function start() {
         const filter = {_id: new ObjectId(id)}
         const result  = await campaignCollection.findOne(filter)
         res.send(result)
+    })
+
+    app.post('/donation', async(req, res)=>{
+      const body = req.body;
+      const result = await donationCollection.insertOne(body)
+      res.send(result)
     })
 
 
