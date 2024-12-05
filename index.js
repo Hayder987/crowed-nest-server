@@ -44,6 +44,24 @@ async function start() {
         res.send(result)
     })
 
+    app.get('/recent', async(req, res)=>{
+      const date = new Date();
+      const formatDate = (currentDate) => {
+        return currentDate.toISOString().split("T")[0];
+      };
+
+      const newDate = formatDate(date);
+
+      const query = { deadline: { $gt: newDate } };
+      const options = {
+        sort: { deadline: 1 }, 
+        limit: 6,
+      };
+      const result = await campaignCollection.find(query, options).toArray();
+      res.send(result)
+    })
+    
+
     app.post('/donation', async(req, res)=>{
       const body = req.body;
       const result = await donationCollection.insertOne(body)
