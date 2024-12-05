@@ -44,6 +44,13 @@ async function start() {
         res.send(result)
     })
 
+    app.delete('/campaign/:id', async(req, res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const result = await campaignCollection.deleteOne(filter);
+      res.send(result)
+    })
+
     app.patch('/campaign/:id', async(req, res)=>{
         const id = req.params.id;
         const body = req.body;
