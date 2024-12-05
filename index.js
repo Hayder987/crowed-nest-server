@@ -44,6 +44,26 @@ async function start() {
         res.send(result)
     })
 
+    app.patch('/campaign/:id', async(req, res)=>{
+        const id = req.params.id;
+        const body = req.body;
+        const filter = {_id: new ObjectId(id)}
+        const {imgPath, title, campaignType, description, amount, deadline} = body
+        const updateDoc = {
+          $set: {
+            imgPath:imgPath,
+            title:title,
+            campaignType:campaignType,
+            description:description,
+            amount:amount,
+            deadline:deadline
+          },
+        };
+
+        const result = await campaignCollection.updateOne(filter, updateDoc)
+        res.send(result)
+    })
+
 
     app.get('/user/:email', async (req, res) => {
       const email = req.params.email; 
