@@ -112,6 +112,13 @@ async function start() {
       res.send(result)
     })
 
+    app.delete('/donation/:email', async(req, res)=>{
+      const email = req.params.email;
+      const filter = {email:email}
+      const result  = await donationCollection.deleteMany(filter)
+      res.send(result)
+    })
+
 
    
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
