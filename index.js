@@ -25,6 +25,7 @@ async function start() {
    
     const campaignCollection = client.db("crowedDB").collection("campaignData");
     const donationCollection = client.db("crowedDB").collection("donationData");
+    const reviewCollection = client.db("crowedDB").collection("review");
 
     app.post('/campaigns', async(req, res)=>{
         const body = req.body;
@@ -118,7 +119,17 @@ async function start() {
       const result  = await donationCollection.deleteMany(filter)
       res.send(result)
     })
+    
+    app.post('/review', async(req, res)=>{
+      const review = req.body
+      const result = await reviewCollection.insertOne(review)
+      res.send(review)
+    })
 
+    app.get('/recentReview', async(req, res)=>{
+      const result = await reviewCollection.find().sort({_id: -1}).limit(7).toArray()
+      res.send(result)
+    })
 
    
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
