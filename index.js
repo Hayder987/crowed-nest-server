@@ -92,7 +92,7 @@ async function start() {
       const query = { deadline: { $gt: newDate } };
       const options = {
         sort: { deadline: 1 }, 
-        limit: 6,
+        limit: 8,
       };
       const result = await campaignCollection.find(query, options).toArray();
       res.send(result)
